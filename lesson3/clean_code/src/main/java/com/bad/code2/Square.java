@@ -1,19 +1,18 @@
 package com.bad.code2;
 
-public class Square implements Shape3D {
+public class Square implements Shape2D {
     private Double x;
     private Double y;
-    private Double edgeSize;
-    public Square(Double x, Double y, Double edgeSize) {
+    private Double edgeLength;
+
+    public Square(Double x, Double y, Double edgeLength) {
         this.x = x;
         this.y = y;
-        this.edgeSize = edgeSize;
+        this.edgeLength = edgeLength;
     }
 
     @Override
-    public Double getX() {
-        return x;
-    }
+    public Double getX() { return x; }
 
     @Override
     public Double getY() {
@@ -21,16 +20,7 @@ public class Square implements Shape3D {
     }
 
     @Override
-    public Double getZ() {
-        return null;
-    }
-
-    @Override
-    public Double getVolume() {
-        return null;
-    }
-
-    public Double getPerimeter() {
-        return edgeSize * edgeSize;
+    public Double getArea() {
+        return edgeLength * edgeLength;
     }
 }
