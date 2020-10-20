@@ -1,11 +1,8 @@
-package ru.philosophyit;
-
 public class DeadLock {
 
   static class Friend {
     private final String name;
-    private static Object lockBow = new Object();
-    private static Object lockBowBack = new Object();
+    public int hitpoints = 20_000_000;
 
     public Friend(String name) {
       this.name = name;
@@ -16,15 +13,17 @@ public class DeadLock {
     }
 
     public void bow(Friend bower) {
-      synchronized (lockBow) {
-      System.out.format("%s: %s подстрелил меня!\n", this.name, bower.getName());
-      System.out.format("%s: стреляю в ответ!\n", this.name);
-      bower.bowBack(this);
+      synchronized (this) {
+        for (int i = 0; i < 5_000_000; i++) {
+          this.hitpoints--;
+        }
       }
+      bower.bowBack(this);
     }
 
-    public void bowBack(Friend bower) {
-      synchronized (lockBowBack) { System.out.format("%s: %s подстрелил меня!\n", this.name, bower.getName()); }
+    public synchronized void bowBack(Friend bower) {
+        for (int i = 0; i < 5_000_000; i++) { this.hitpoints--; }
+      System.out.println(this.hitpoints);
     }
   }
 
@@ -33,12 +32,19 @@ public class DeadLock {
    *
    * @param args аргументы командной строки
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InterruptedException {
     Friend alphonse = new Friend("Alphonse");
     Friend gaston = new Friend("Gaston");
+    Thread thread1 = new Thread(() -> alphonse.bow(gaston));
+    Thread thread2 = new Thread(() -> gaston.bow(alphonse));
+    Thread thread3 = new Thread(() -> alphonse.bow(gaston));
+    Thread thread4 = new Thread(() -> gaston.bow(alphonse));
 
-    new Thread(() -> alphonse.bow(gaston)).start();
-    new Thread(() -> gaston.bow(alphonse)).start();
+    thread1.start();
+    thread2.start();
+    thread3.start();
+    thread4.start();
+
   }
 }
 
