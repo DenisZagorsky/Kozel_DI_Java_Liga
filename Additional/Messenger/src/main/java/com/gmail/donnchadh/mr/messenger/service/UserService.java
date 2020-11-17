@@ -89,7 +89,7 @@ public class UserService {
     }
 
     /**
-     * Удаление пользователя
+     * Удаление пользователя БД
      * @param user Пользователь
      */
     public void deleteUser(User user) {
