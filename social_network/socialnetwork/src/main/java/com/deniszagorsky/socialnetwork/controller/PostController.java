@@ -30,6 +30,8 @@ public class PostController {
      * @param postDto Данные поста для создания
      * @return Идентификатор поста
      */
+//    /socialnetwork/1/create_post
+//    /api/v1/socialnetwork/posts
     @PostMapping("/{userId}/create_post")
     public UUID createPost(@PathVariable UUID userId, @RequestBody @Valid PostCreationDto postDto) {
         return postService.create(userId, postDto);

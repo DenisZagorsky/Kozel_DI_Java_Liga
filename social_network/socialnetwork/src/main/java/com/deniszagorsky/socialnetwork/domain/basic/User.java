@@ -6,6 +6,7 @@ import com.deniszagorsky.socialnetwork.domain.embeddable.Sex;
 import com.deniszagorsky.socialnetwork.domain.superclass.Identifiable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ import java.util.List;
  * Пользователь
  */
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
